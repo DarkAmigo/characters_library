@@ -1,0 +1,29 @@
+<h1>Characters in {{ ability.name }}</h1>
+
+<a href="{% url 'character_list' %}">← Back to all characters</a>
+
+<ul>
+    {% for character in characters %}
+        <li>
+            <strong>{{ character.name }}</strong><br>
+            Creator: {{ character.creator.name }}<br>
+
+            Universe:
+            {% for universe in character.universes.all %}
+                {{ universe.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}<br>
+
+            Weapons:
+            {% for weapon in character.weapons.all %}
+                {{ weapon.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}<br>
+
+            Teams:
+            {% for team in character.teams.all %}
+                {{ team.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}<br><br>
+        </li>
+    {% empty %}
+        <li>No characters in this universe yet.</li>
+    {% endfor %}
+</ul>

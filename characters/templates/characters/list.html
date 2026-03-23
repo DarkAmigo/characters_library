@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Characters{% endblock %}
+
+{% block content %}
+<h1>Characters</h1>
+
+{% if user.role == 'admin' %}
+<a href="{% url 'character_create' %}">+ Add Character</a>
+{% endif %}
+
+<div class="row">
+    <ul>
+        {% for character in characters %}
+        <li>
+            <strong>{{ character.name }}</strong><br>
+            Universe: <a href="{% url 'characters_by_universe' character.universe.id %}">
+                {{ character.universe.name }}
+            </a><br>
+            Creator: {{ character.creator.name }}<br>
+
+            Abilities:
+            {% for ability in character.abilities.all %}
+            <a href="{% url 'characters_by_ability' ability.id %}">
+                {{ ability.name }}
+            </a>{% if not forloop.last %}, {% endif %}
+            {% empty %}
+            No abilities
+            {% endfor %}<br>
+
+            Weapons:
+            {% for weapon in character.weapons.all %}
+            {{ weapon.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}<br>
+
+            Teams:
+            {% for team in character.teams.all %}
+            {{ team.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}<br>
+
+            {% if user.role == 'admin' %}
+            <a href="{% url 'character_delete' character.id %}">Delete</a>
+            {% endif %}
+
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

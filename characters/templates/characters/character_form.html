@@ -1,0 +1,8 @@
+<h1>Create Character</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+
+<a href="{% url 'character_list' %}">← Back to Characters</a>

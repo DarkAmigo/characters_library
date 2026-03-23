@@ -1,0 +1,7 @@
+<h1>Delete Character: {{ character.name }}</h1>
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete this character?</p>
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'character_list' %}">Cancel</a>
+</form>
